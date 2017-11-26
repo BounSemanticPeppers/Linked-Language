@@ -1,9 +1,15 @@
 package com.boun.semanticweb.web;
 
+import com.boun.semanticweb.base.JsonHandler;
 import com.boun.semanticweb.model.User;
 import com.boun.semanticweb.service.SecurityService;
 import com.boun.semanticweb.service.UserService;
 import com.boun.semanticweb.validator.UserValidator;
+import com.google.gson.Gson;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,4 +67,21 @@ public class UserController {
     public String welcome(Model model) {
         return "welcome";
     }
+    
+    /**
+     * this is a simple example of how system API's will work.
+     * you can control using http://localhost:8080/LinkedLanguage/getUserName?userId=5
+     * @param userId
+     * @param response
+     * @throws Exception
+     */
+    @RequestMapping(value = "/getUserName", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+	public void getUserName(@ModelAttribute("userId") String userId,HttpServletResponse response)
+			throws Exception {
+		
+		String resultJson = JsonHandler.convertToJSON(userService.findByUserId(Long.parseLong(userId)));
+		
+		response.getWriter().write(resultJson);
+
+	}
 }
