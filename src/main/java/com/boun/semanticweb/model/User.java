@@ -12,6 +12,15 @@ public class User {
     private String password;
     private String passwordConfirm;
     private Set<Role> roles;
+    private Integer userType;
+
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Integer userType) {
+        this.userType = userType;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

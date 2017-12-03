@@ -8,7 +8,7 @@ app.controller('HomePageController', ['$scope','$http','BaseAPI',function($scope
     
     $scope.userName = "";
     function initialize(){
-        BaseAPI.callServlet('getUserName',{userId : 5}).then(function(response){
+        BaseAPI.callServlet('getUserName',{userId : 7}).then(function(response){
             $scope.userName = response;
         });
     }

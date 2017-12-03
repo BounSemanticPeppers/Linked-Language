@@ -5,11 +5,11 @@ import com.boun.semanticweb.model.User;
 import com.boun.semanticweb.service.SecurityService;
 import com.boun.semanticweb.service.UserService;
 import com.boun.semanticweb.validator.UserValidator;
-import com.google.gson.Gson;
-
-import java.util.List;
+import java.security.Principal;
+import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,18 +53,40 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model, String error, String logout) {
+    public String login(Model model, String error, String logout,HttpServletRequest request) {
+        
+        System.out.println("buraya girdi");
+        System.out.println("error vales" + error);
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
 
-        if (logout != null)
+        if (logout != null){
             model.addAttribute("message", "You have been logged out successfully.");
-
+        }
+        
+        HttpSession session = request.getSession();
+        session.invalidate();
+            
         return "login";
     }
 
+    @RequestMapping(value = {"/afterLogin"}, method = RequestMethod.GET)
+    public String welcome(Model model,HttpServletRequest request,HttpServletResponse response,Principal principal) {
+        System.out.println("after logine girdi");
+        HttpSession session = request.getSession();
+        User dbUser = userService.findByUsername(principal.getName());
+        session.setAttribute("user", dbUser);
+        session.setAttribute("username", (dbUser.getUsername()).toUpperCase());
+        session.setAttribute("usreId", dbUser.getId());
+        session.setAttribute("userType", dbUser.getUserType());
+        session.setMaxInactiveInterval(30*60);
+        
+        return "redirect:/welcome";
+    }
+    
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String welcome(Model model) {
+        
         return "welcome";
     }
     

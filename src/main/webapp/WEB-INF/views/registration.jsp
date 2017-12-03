@@ -16,14 +16,13 @@
 
     <title>Create an account</title>
 
-    <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
+    <link id="active_style" rel="stylesheet" href="${contextPath}/resources/css/bootswatch_flatly_bootstrap.min.css">
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <script src="${contextPath}/resources/js/jquery-2.2.1.min.js"></script>
+    <script src="${contextPath}/resources/js/jquery-ui.js"></script>    
+    <script src="${contextPath}/resources/js/bootstrap-3.3.2.min.js"></script>
+
 </head>
 
 <body>
@@ -53,6 +52,12 @@
                             placeholder="Confirm your password"></form:input>
                 <form:errors path="passwordConfirm"></form:errors>
             </div>
+        </spring:bind>
+        <spring:bind path="userType">
+            <form:select path="userType" class="form-control" >
+                <form:option value="1" label="Gamer" />
+                <form:option value="2" label="Learner" />
+            </form:select>
         </spring:bind>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
