@@ -6,10 +6,10 @@
 
 app.controller('HomePageController', ['$scope','$http','BaseAPI',function($scope,$http,BaseAPI){
     
-    $scope.userName = "";
+    $scope.totalScore = "";
     function initialize(){
-        BaseAPI.callServlet('getUserName',{userId : 7}).then(function(response){
-            $scope.userName = response;
+        BaseAPI.callServlet('getUserScore',{}).then(function(response){
+            $scope.totalScore = response;
         });
     }
     

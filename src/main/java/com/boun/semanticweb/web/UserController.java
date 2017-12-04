@@ -1,5 +1,6 @@
 package com.boun.semanticweb.web;
 
+import com.boun.semanticweb.base.CommonUserOperations;
 import com.boun.semanticweb.base.JsonHandler;
 import com.boun.semanticweb.model.User;
 import com.boun.semanticweb.service.SecurityService;
@@ -47,9 +48,9 @@ public class UserController {
 
         userService.save(userForm);
 
-        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+        //securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        return "redirect:/welcome";
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -92,18 +93,19 @@ public class UserController {
     
     /**
      * this is a simple example of how system API's will work.
-     * you can control using http://localhost:8080/LinkedLanguage/getUserName?userId=5
+     * you can control using http://localhost:8080/LinkedLanguage/getUser?userId=5
      * @param userId
      * @param response
      * @throws Exception
      */
-    @RequestMapping(value = "/getUserName", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
-	public void getUserName(@ModelAttribute("userId") String userId,HttpServletResponse response)
+    @RequestMapping(value = "/getUserScore", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+	public void getUserScore(HttpServletResponse response)
 			throws Exception {
 		
-		String resultJson = JsonHandler.convertToJSON(userService.findByUserId(Long.parseLong(userId)));
+		String resultJson = JsonHandler.convertToJSON(userService.findByUserId(CommonUserOperations.getUserId()).getTotalScore());
 		
 		response.getWriter().write(resultJson);
 
 	}
+
 }

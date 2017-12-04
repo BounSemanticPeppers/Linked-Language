@@ -7,5 +7,5 @@ public interface UserService {
 
     User findByUsername(String username);
     
-    String findByUserId(Long userId);
+    User findByUserId(Long userId);
 }

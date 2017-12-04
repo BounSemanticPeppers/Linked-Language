@@ -12,4 +12,8 @@ public interface GameService {
     GameUserWords addWordsToGameUser(Long wordId);
 
     GameUsers finishGameForUser(Long gameUserId);
+
+    Game getIncompleteGame();
+
+    Game controlAndFinishGame();
 }

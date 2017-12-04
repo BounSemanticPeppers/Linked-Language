@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService {
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setRoles(new HashSet<>(roleRepository.findAll()));
+        user.setTotalScore(0);
         userRepository.save(user);
     }
 
@@ -32,7 +33,7 @@ public class UserServiceImpl implements UserService {
     }
     
     @Override
-    public String findByUserId(Long userId) {
-        return userRepository.findById(userId).getUsername();
+    public User findByUserId(Long userId) {
+        return userRepository.findById(userId);
     }
 }

@@ -13,6 +13,7 @@ public class User {
     private String passwordConfirm;
     private Set<Role> roles;
     private Integer userType;
+    private Integer totalScore;
 
     public Integer getUserType() {
         return userType;
@@ -46,6 +47,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(Integer totalScore) {
+        this.totalScore = totalScore;
     }
 
     @Transient

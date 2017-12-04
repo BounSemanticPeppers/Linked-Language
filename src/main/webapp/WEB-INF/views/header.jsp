@@ -1,3 +1,4 @@
+<%@ page import="com.boun.semanticweb.model.User" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,9 +10,13 @@
 	//allow access only if session exists
 	String userName = null;
 	Integer userType = 0;
+	Integer totalScore = 0;
+	User user = null;
 	if(session.getAttribute("username") != null){
 	    userName = (String) session.getAttribute("username");
 	    userType = (Integer) session.getAttribute("userType");
+        user = (User) session.getAttribute("user");
+        totalScore = user.getTotalScore();
 	}
 %>
 

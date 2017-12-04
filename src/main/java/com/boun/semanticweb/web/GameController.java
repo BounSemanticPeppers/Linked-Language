@@ -50,8 +50,18 @@ public class GameController {
     @RequestMapping(value = "/getRandomWord", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
     public void getRandomWord(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        Word word = wordService.getRandomWord();
-        Game game = gameService.startGame(word.getId());
+        Word word = null;
+        Game game = null;
+        Game incomplete = gameService.getIncompleteGame();
+
+        if (incomplete == null){ // if no incomplete game exists then create new
+            word = wordService.getRandomWord();
+            game = gameService.startGame(word.getId());
+        }else{ //else get existing game
+            word = wordService.findByWordId(incomplete.getAskedWordId());
+            game = incomplete;
+        }
+
         GameUsers gameUsers = gameService.addUserToGame(CommonUserOperations.getUserId(),game.getGameId());
 
         HttpSession session = request.getSession();
@@ -76,10 +86,14 @@ public class GameController {
 
         GameUsers gameUsers = gameService.finishGameForUser(CommonUserOperations.getGameUserId());
 
+        gameService.controlAndFinishGame();
         CommonUserOperations.removeTheGameFromSession();
+
+
 
         response.getWriter().write(JsonHandler.convertToJSON(gameUsers));
 
     }
+
 
 }
