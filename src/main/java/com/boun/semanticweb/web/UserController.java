@@ -77,7 +77,7 @@ public class UserController {
         User dbUser = userService.findByUsername(principal.getName());
         session.setAttribute("user", dbUser);
         session.setAttribute("username", (dbUser.getUsername()).toUpperCase());
-        session.setAttribute("usreId", dbUser.getId());
+        session.setAttribute("userId", dbUser.getId());
         session.setAttribute("userType", dbUser.getUserType());
         session.setMaxInactiveInterval(30*60);
         
