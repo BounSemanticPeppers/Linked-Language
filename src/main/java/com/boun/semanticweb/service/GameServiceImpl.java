@@ -86,13 +86,12 @@ public class GameServiceImpl implements GameService {
     public Game controlAndFinishGame(){
         Long gameId = CommonUserOperations.getCurrentGame().getGameId();
         Game game = gameRepository.getByGameId(gameId);
+
         List<GameUsers> gameUsersList = gameUsersRepository.findByGameId(gameId);
-        if (gameUsersList.size() == 2 && gameUsersList.get(0).getFinished() && gameUsersList.get(1).getFinished()){
+        if (isGameFinished(gameUsersList)){
 
             List<GameUserWords> gameUserWords1 = gameUserWordsRepository.findByGameUserId(gameUsersList.get(0).getGameUserId());
             List<GameUserWords> gameUserWords2 = gameUserWordsRepository.findByGameUserId(gameUsersList.get(1).getGameUserId());
-
-
 
             int totalScore = 0;
             for (int i = 0; i<gameUserWords1.size(); i++){
@@ -101,25 +100,10 @@ public class GameServiceImpl implements GameService {
                         totalScore += 10;
 
                         // add a new word relation to history table
-                        WordRelationHistory wordRelationHistory = new WordRelationHistory();
-                        wordRelationHistory.setCreatedDate(new Date());
-                        wordRelationHistory.setGameId(gameId);
-                        wordRelationHistory.setSourceWordId(game.getAskedWordId());
-                        wordRelationHistory.setTargetWordId(gameUserWords1.get(i).getWordId());
-                        wordRelationHistoryRepository.save(wordRelationHistory);
-
+                        addWordRelationHistory(game, gameUserWords1.get(i).getWordId());
 
                         // increment relation counter of the words and save
-                        WordRelation wordRelation = wordRelationRepository.findBySourceWordIdAndTargetWordId(game.getAskedWordId(), gameUserWords1.get(i).getWordId());
-                        if(wordRelation != null){
-                            wordRelation.setScore(wordRelation.getScore() + 1);
-                        }else{
-                            wordRelation = new WordRelation();
-                            wordRelation.setScore(1);
-                            wordRelation.setSourceWordId(game.getAskedWordId());
-                            wordRelation.setTargetWordId(gameUserWords1.get(i).getWordId());
-                        }
-                        wordRelationRepository.save(wordRelation);
+                        addWordRelation(game, gameUserWords1.get(i).getWordId());
 
                     }
                 }
@@ -130,15 +114,47 @@ public class GameServiceImpl implements GameService {
             game.setScore(totalScore);
             gameRepository.save(game);
 
-            User user1 = userRepository.findById(gameUsersList.get(0).getUserId());
-            user1.setTotalScore(user1.getTotalScore() + totalScore);
-            userRepository.save(user1);
+            updateUserScore(gameUsersList.get(0).getUserId(),totalScore);
+            updateUserScore(gameUsersList.get(1).getUserId(),totalScore);
 
-            User user2 = userRepository.findById(gameUsersList.get(1).getUserId());
-            user2.setTotalScore(user2.getTotalScore() + totalScore);
-            userRepository.save(user2);
         }
 
         return game;
+    }
+
+    private void updateUserScore(Long userId, Integer totalScore){
+        User user = userRepository.findById(userId);
+        user.setTotalScore(user.getTotalScore() + totalScore);
+        userRepository.save(user);
+    }
+
+    private void addWordRelationHistory(Game game, Long feedWordId){
+
+        WordRelationHistory wordRelationHistory = new WordRelationHistory();
+        wordRelationHistory.setCreatedDate(new Date());
+        wordRelationHistory.setGameId(game.getGameId());
+        wordRelationHistory.setSourceWordId(game.getAskedWordId());
+        wordRelationHistory.setTargetWordId(feedWordId);
+        wordRelationHistoryRepository.save(wordRelationHistory);
+    }
+
+    private void addWordRelation(Game game,Long feedWordId){
+        WordRelation wordRelation = wordRelationRepository.findBySourceWordIdAndTargetWordId(game.getAskedWordId(), feedWordId);
+        if(wordRelation != null){
+            wordRelation.setScore(wordRelation.getScore() + 1);
+        }else{
+            wordRelation = new WordRelation();
+            wordRelation.setScore(1);
+            wordRelation.setSourceWordId(game.getAskedWordId());
+            wordRelation.setTargetWordId(feedWordId);
+        }
+        wordRelationRepository.save(wordRelation);
+    }
+
+    private Boolean isGameFinished(List<GameUsers> gameUsersList){
+        if (gameUsersList.size() == 2 && gameUsersList.get(0).getFinished() && gameUsersList.get(1).getFinished()){
+            return true;
+        }
+        return false;
     }
 }
