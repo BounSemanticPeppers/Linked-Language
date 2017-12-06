@@ -111,6 +111,7 @@
 
     </dependencies>
     <build>
+        <finalName>LinkedLanguage</finalName>
         <plugins>
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
@@ -123,6 +124,14 @@
                     </webApp>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <path>/LinkedLanguage</path>
+                </configuration>
+              </plugin>
         </plugins>
     </build>
 </project>
