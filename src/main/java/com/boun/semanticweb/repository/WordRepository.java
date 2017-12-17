@@ -9,6 +9,8 @@ import com.boun.semanticweb.model.Word;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 /**
  *
  * @author onurm
@@ -20,4 +22,6 @@ public interface WordRepository extends JpaRepository<Word, Long> {
     
     @Query("select max(id) from Word")
     Long getMaxWordId();
+
+    List<Word> findByIdIn(List<Long> ids);
 }

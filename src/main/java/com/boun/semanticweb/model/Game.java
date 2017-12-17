@@ -1,17 +1,18 @@
 package com.boun.semanticweb.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "game")
-public class Game {
+public class Game implements Serializable {
     private Long gameId;
-    private Long askedWordId;
     private Boolean complete;
     private Integer score;
     private Date createdDate;
     private Long createdBy;
+    private Long askedWordId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,14 +22,6 @@ public class Game {
 
     public void setGameId(Long gameId) {
         this.gameId = gameId;
-    }
-
-    public Long getAskedWordId() {
-        return askedWordId;
-    }
-
-    public void setAskedWordId(Long askedWordId) {
-        this.askedWordId = askedWordId;
     }
 
     public Date getCreatedDate() {
@@ -61,5 +54,13 @@ public class Game {
 
     public void setCreatedBy(Long createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public Long getAskedWordId() {
+        return askedWordId;
+    }
+
+    public void setAskedWordId(Long askedWordId) {
+        this.askedWordId = askedWordId;
     }
 }

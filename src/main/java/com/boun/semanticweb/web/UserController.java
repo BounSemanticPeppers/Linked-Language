@@ -3,6 +3,7 @@ package com.boun.semanticweb.web;
 import com.boun.semanticweb.base.CommonUserOperations;
 import com.boun.semanticweb.base.JsonHandler;
 import com.boun.semanticweb.model.User;
+import com.boun.semanticweb.service.GameService;
 import com.boun.semanticweb.service.SecurityService;
 import com.boun.semanticweb.service.UserService;
 import com.boun.semanticweb.validator.UserValidator;
@@ -30,6 +31,9 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;
+
+    @Autowired
+    private GameService gameService;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -94,7 +98,6 @@ public class UserController {
     /**
      * this is a simple example of how system API's will work.
      * you can control using http://localhost:8080/LinkedLanguage/getUser?userId=5
-     * @param userId
      * @param response
      * @throws Exception
      */
@@ -107,5 +110,15 @@ public class UserController {
 		response.getWriter().write(resultJson);
 
 	}
+
+
+    @RequestMapping(value = "/getUserGames", produces = "application/json;charset=UTF-8", method = RequestMethod.POST)
+    public void getUserGames(HttpServletResponse response)throws Exception {
+
+        String resultJson = JsonHandler.convertToJSON(gameService.getUserGames(CommonUserOperations.getUserId()));
+
+        response.getWriter().write(resultJson);
+
+    }
 
 }

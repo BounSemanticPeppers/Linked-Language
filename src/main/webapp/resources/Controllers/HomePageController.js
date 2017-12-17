@@ -5,11 +5,19 @@
  */
 
 app.controller('HomePageController', ['$scope','$http','BaseAPI',function($scope,$http,BaseAPI){
-    
-    $scope.totalScore = "";
+
+
     function initialize(){
+        $scope.totalScore = "";
+        $scope.gameList = [];
+
         BaseAPI.callServlet('getUserScore',{}).then(function(response){
             $scope.totalScore = response;
+        });
+
+        BaseAPI.callServlet('getUserGames',{}).then(function(response){
+            $scope.gameList = response;
+            console.log(response);
         });
     }
     

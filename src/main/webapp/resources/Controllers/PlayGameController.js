@@ -38,9 +38,9 @@ app.controller('GameController', ['$scope','$http','BaseAPI',function($scope,$ht
                 $("#btnSubmit").attr("disabled", "disabled");
                 BaseAPI.callServlet('finishGameForUser',{}).then(function(response){
                     console.log(response);
-                    if(response.finished == true){
-                        window.location.href = "/LinkedLanguage/gameEnd";
-                    }
+                    //if(response.finished == true){
+                        window.location.href = "/LinkedLanguage/gameEnd?gameId="+response.gameId;
+                    //}
                 });
 
             }

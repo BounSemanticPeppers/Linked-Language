@@ -5,12 +5,10 @@
  */
 package com.boun.semanticweb.model;
 
+import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.Set;
+import javax.persistence.*;
 
 /**
  *
@@ -18,11 +16,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "word")
-public class Word {
+public class Word implements Serializable {
     private Long id;
     private String text;
     private Date createdDate;
     private Long createdBy;
+
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -57,6 +56,5 @@ public class Word {
     public void setCreatedBy(Long createdBy) {
         this.createdBy = createdBy;
     }
-    
-    
+
 }
