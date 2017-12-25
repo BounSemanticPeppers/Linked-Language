@@ -46,7 +46,7 @@
         </div>
         <div class="col-sm-6">
             <div class="row">
-                <h2> <p class="text-info"> Body Responses</p> </h2>
+                <h2> <p class="text-info"> Buddy Responses</p> </h2>
             </div>
             <div class="row" ng-if="matchWordList.length > 0">
                 <p ng-repeat="matchWord in matchWordList" class="text-success">

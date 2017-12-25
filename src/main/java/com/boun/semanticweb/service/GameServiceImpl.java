@@ -178,13 +178,27 @@ public class GameServiceImpl implements GameService {
         List<GameUsers> gameUsersList = gameUsersRepository.findByGameId(gameId);
         List<GameUserWords> gameUserWords1;
         List<GameUserWords> gameUserWords2;
-        if(gameUsersList.get(0).getUserId().equals(userId)){
-            gameUserWords1 = gameUserWordsRepository.findByGameUserId(gameUsersList.get(0).getGameUserId());
-            gameUserWords2 = gameUserWordsRepository.findByGameUserId(gameUsersList.get(1).getGameUserId());
+
+        if(userId == -1){ // if not session user, get buddy user
+            Long sessionUserId = CommonUserOperations.getUserId();
+
+            if(gameUsersList.get(0).getUserId().equals(sessionUserId)){
+                gameUserWords1 = gameUserWordsRepository.findByGameUserId(gameUsersList.get(1).getGameUserId());
+                gameUserWords2 = gameUserWordsRepository.findByGameUserId(gameUsersList.get(0).getGameUserId());
+            }else{
+                gameUserWords1 = gameUserWordsRepository.findByGameUserId(gameUsersList.get(0).getGameUserId());
+                gameUserWords2 = gameUserWordsRepository.findByGameUserId(gameUsersList.get(1).getGameUserId());
+            }
         }else{
-            gameUserWords1 = gameUserWordsRepository.findByGameUserId(gameUsersList.get(1).getGameUserId());
-            gameUserWords2 = gameUserWordsRepository.findByGameUserId(gameUsersList.get(0).getGameUserId());
+            if(gameUsersList.get(0).getUserId().equals(userId)){
+                gameUserWords1 = gameUserWordsRepository.findByGameUserId(gameUsersList.get(0).getGameUserId());
+                gameUserWords2 = gameUserWordsRepository.findByGameUserId(gameUsersList.get(1).getGameUserId());
+            }else{
+                gameUserWords1 = gameUserWordsRepository.findByGameUserId(gameUsersList.get(1).getGameUserId());
+                gameUserWords2 = gameUserWordsRepository.findByGameUserId(gameUsersList.get(0).getGameUserId());
+            }
         }
+
 
         ArrayList<Long> unmatchWordIds = new ArrayList<>();
         for (int i = 0; i<gameUserWords1.size(); i++) {

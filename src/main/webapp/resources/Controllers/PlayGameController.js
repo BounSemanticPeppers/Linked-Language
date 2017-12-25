@@ -33,6 +33,7 @@ app.controller('GameController', ['$scope','$http','BaseAPI',function($scope,$ht
             $scope.remainingTime = $scope.remainingTime -1;
             $("#spnRemaining").text( $scope.remainingTime );
             if($scope.remainingTime <= 0){
+                $scope.showProgressBar = true;
                 clearInterval(timeinterval);
                 $("#txtFeedWord").attr("disabled", "disabled");
                 $("#btnSubmit").attr("disabled", "disabled");
