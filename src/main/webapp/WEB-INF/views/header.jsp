@@ -36,16 +36,16 @@
 
     <title>Welcome</title>
 
-    <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
-    <link id="active_style" rel="stylesheet" href="${contextPath}/resources/css/bootswatch_flatly_bootstrap.min.css">
+    <link href="${pageContext.request.contextPath}/resources/css/common.css" rel="stylesheet">
+    <link id="active_style" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootswatch_flatly_bootstrap.min.css">
 
-    <script src="${contextPath}/resources/js/jquery-2.2.1.min.js"></script>
-    <script src="${contextPath}/resources/js/jquery-ui.js"></script>    
-    <script src="${contextPath}/resources/js/bootstrap-3.3.2.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-2.2.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap-3.3.2.min.js"></script>
         
-    <script src="${contextPath}/resources/js/angular.min.js"></script>
-    <script src="${contextPath}/resources/js/bootbox.min.js"></script>
-    <script src="${contextPath}/resources/Controllers/app.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/angular.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/bootbox.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/Controllers/app.js"></script>
 
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 
