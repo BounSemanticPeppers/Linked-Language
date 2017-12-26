@@ -46,8 +46,15 @@
     <script src="${contextPath}/resources/js/angular.min.js"></script>
     <script src="${contextPath}/resources/js/bootbox.min.js"></script>
     <script src="${contextPath}/resources/Controllers/app.js"></script>
-    
-    
+
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
+    <style>
+        .modal-backdrop{
+            opacity: 0 !important;
+            z-index: -10000 !important;
+        }
+    </style>
 </head>
 
 <body>

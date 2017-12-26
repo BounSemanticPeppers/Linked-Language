@@ -6,7 +6,6 @@
 
 app.controller('HomePageController', ['$scope','$http','BaseAPI',function($scope,$http,BaseAPI){
 
-
     function initialize(){
         $scope.totalScore = "";
         $scope.gameList = [];
@@ -19,7 +18,24 @@ app.controller('HomePageController', ['$scope','$http','BaseAPI',function($scope
             $scope.gameList = response;
             console.log(response);
         });
+
+        $scope.searchText = "";
     }
     
     initialize();
+
+    $scope.search = function () {
+        console.log($scope.searchText);
+
+        if($scope.searchText != ""){
+            BaseAPI.callServlet('searchWord',{searchWord: $scope.searchText}).then(function(response){
+                if(typeof response == "string") {
+                    bootbox.alert("Word Not Found");
+                }else{
+                    window.location.href = "/LinkedLanguage/searchResult?search="+$scope.searchText;
+                }
+            });
+
+        }
+    }
 }]);

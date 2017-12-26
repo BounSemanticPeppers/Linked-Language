@@ -109,6 +109,19 @@
 			<version>2.5</version>
 		</dependency>
 
+        <dependency>
+            <groupId>org.wikidata.wdtk</groupId>
+            <artifactId>wdtk-dumpfiles</artifactId>
+            <version>0.8.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.wikidata.wdtk/wdtk-wikibaseapi -->
+        <dependency>
+            <groupId>org.wikidata.wdtk</groupId>
+            <artifactId>wdtk-wikibaseapi</artifactId>
+            <version>0.8.0</version>
+        </dependency>
+
+
     </dependencies>
     <build>
         <finalName>LinkedLanguage</finalName>

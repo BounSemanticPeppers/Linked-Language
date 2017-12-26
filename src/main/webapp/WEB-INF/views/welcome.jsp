@@ -64,6 +64,23 @@
 
                 </div>
             </div>
+            <% }else{ %>
+
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6">
+                    <form class="form" ng-submit="search()">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Search" ng-model="searchText" name="srch-term" id="srch-term" type="text">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+
             <% } %>
         </div>
     </div>
