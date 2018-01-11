@@ -52,8 +52,9 @@ public class SearchController {
     public void searchWord(@ModelAttribute("searchWord") String searchWord, HttpServletResponse response) throws Exception {
 
         Word word = wordService.findByText(searchWord);
+        GraphData data = wordRelationService.getWordRelations(word);
 
-        if (word != null){
+        if (word != null && data.getEdges().size() > 0){
             response.getWriter().write(JsonHandler.convertToJSON(word));
         }else{
             response.getWriter().write(JsonHandler.convertToJSON("Word not found"));
