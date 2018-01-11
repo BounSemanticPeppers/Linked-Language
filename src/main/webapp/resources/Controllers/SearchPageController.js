@@ -49,6 +49,7 @@ app.controller('SearchPageController', ['$scope','$http','BaseAPI',function($sco
                 $scope.showWikidataResults = false;
             }else{
                 $scope.showWikidataResults = true;
+                $scope.showResultImage = false;
                 if(response.descriptions.en){
                     $scope.chosenWordDesc = response.descriptions.en.text;
                 }else{
@@ -62,6 +63,7 @@ app.controller('SearchPageController', ['$scope','$http','BaseAPI',function($sco
                 }
                 $scope.imageUrl = "";
                 if(response.claims.P18){
+                    $scope.showResultImage = true;
                     $scope.imageUrl ="https://commons.wikimedia.org/w/thumb.php?width=300&f="+response.claims.P18[0].mainsnak.datavalue.value;
                 }else{
                     $scope.imageUrl = "";

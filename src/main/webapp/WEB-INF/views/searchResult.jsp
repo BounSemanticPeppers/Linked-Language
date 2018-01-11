@@ -46,7 +46,7 @@
                     <p class="text-info">
                         <b>Image:</b>
                     </p>
-                    <div class="col-xs-12">
+                    <div class="col-xs-12" ng-show="showResultImage">
                         <img ng-src="{{imageUrl}}">
                     </div>
 
